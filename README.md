@@ -14,7 +14,7 @@ ASYTesting can be imported as a subproject in Xcode or using cocoapods.
 Assert macros
 -------------
 
-ASYTesting provides convenience macros for test assertions.  For a given assert method, there are two macros: one where the log message can be omitted, and one where a message can be provided, e.g.
+ASYTesting provides convenience macros for test assertions. For a given assert method, there are two macros: one where the log message can be omitted, and one where a message can be provided, e.g.
 
 ```
 - (void)testSomeProperty {
