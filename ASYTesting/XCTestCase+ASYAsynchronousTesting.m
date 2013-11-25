@@ -6,9 +6,11 @@
 @implementation XCTestCase (ASYAsynchronousTesting)
 
 - (void)asySignal:(NSString *)signal {
-	NSArray *signals = [self asySignals];
-	signals = signals ? [signals arrayByAddingObject:signal] : @[signal];
-	objc_setAssociatedObject(self, ASYSignalsKey, signals, OBJC_ASSOCIATION_RETAIN);
+    @synchronized(self) {
+        NSArray *signals = [self asySignals];
+        signals = signals ? [signals arrayByAddingObject:signal] : @[signal];
+        objc_setAssociatedObject(self, ASYSignalsKey, signals, OBJC_ASSOCIATION_RETAIN);
+    }
 }
 
 - (BOOL)asyWaitForSignal:(NSString *)signal timeout:(NSTimeInterval)timeout {
@@ -23,7 +25,9 @@
 }
 
 - (NSArray *)asySignals {
-	return objc_getAssociatedObject(self, ASYSignalsKey);
+    @synchronized(self) {
+        return objc_getAssociatedObject(self, ASYSignalsKey);
+    }
 }
 
 @end

@@ -9,6 +9,14 @@ NSString *ASYComposeString(NSString *formatString, ...);
 #define ASYFailWithMessage(format, ...) \
 XCTFail(@"%@", ASYComposeString(format, ## __VA_ARGS__))
 
+#define ASYVerifyOCMockObject(mockObject) \
+@try { \
+[mockObject verify]; \
+} \
+@catch (NSException *exception) { \
+    ASYFailWithMessage([exception reason]); \
+}
+
 #define ASYSignal(signal) \
 [self asySignal:signal]
 #define ASYWaitForSignal(signal, signalTimeout) \
